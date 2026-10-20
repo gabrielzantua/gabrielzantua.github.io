@@ -1,0 +1,22 @@
+---
+title: Collections
+icon: fas fa-folder-open
+order: 0.5
+---
+
+<div id="collection-search-control" hidden>
+  <label for="collection-search">Search collections</label>
+  <input id="collection-search" type="search" placeholder="Find a collection…" aria-controls="collection-grid" autocomplete="off">
+</div>
+
+<div id="collection-grid" class="note-collections">
+  {% assign collections = site.posts | where: 'collection_index', true | sort_natural: 'title' %}
+  {% for collection in collections %}
+    <a class="note-collection post-preview" href="{{ collection.url | relative_url }}" data-title="{{ collection.title | escape }}">
+      <strong>{{ collection.title | escape }}</strong>
+      <span class="text-muted">{{ collection.note_count }} {% if collection.note_count == 1 %}post{% else %}posts{% endif %}</span>
+    </a>
+  {% endfor %}
+</div>
+<p id="collection-empty" class="text-muted" role="status" hidden>No collections found.</p>
+<script src="{{ '/assets/js/collections.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
